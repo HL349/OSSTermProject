@@ -1,0 +1,44 @@
+import os
+import json
+import shutil
+from pathlib import Path
+
+# JSON 파일 로드
+with open('/content/drive/MyDrive/writing/writing_4.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+
+# 디렉토리 생성
+os.makedirs('/content/drive/MyDrive/writing/test', exist_ok=True)
+os.makedirs('/content/drive/MyDrive/writing/lmdb', exist_ok=True)
+
+# gt.txt 파일 열기
+with open('/content/drive/MyDrive/writing/gt.txt', 'w', encoding='utf-8') as gt_file:
+    image_count = 1
+    for image in data['images']:
+        if image['type'] == 'sign':
+            image_id = image['id']
+
+        # 텍스트 정보를 별도의 키에서 가져오기
+        text = None
+        for annotation in data['annotations']:
+            if annotation['image_id'] == image_id:
+                text = annotation['text']
+                break
+
+        # 이미지 파일 이름 생성
+        image_filename = f"word_{image_count}.png"
+        image_path = os.path.join('writing/test', image_filename)
+
+        # 이미지 파일 복사 (실제 이미지 파일 복사 코드 추가해야 함)
+        # shutil.copy(원본_이미지_경로, image_path)
+
+        # gt.txt에 이미지 파일 이름과 텍스트 정보 작성
+        gt_file.write(f'{image_filename} {text}\n')
+
+        image_count += 1
+
+# deep-text-recognition-benchmark 레포지토리에서 lmdb 데이터셋 생성 스크립트 경로
+script_path = Path('/content/drive/MyDrive/create_lmdb_dataset.py')
+
+# lmdb 데이터셋 생성
+!python {script_path} /content/drive/MyDrive/writing/test /content/drive/MyDrive/writing/gt.txt /content/drive/MyDrive/writing/lmdb --checkValid
