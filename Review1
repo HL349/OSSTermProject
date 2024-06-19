@@ -1,0 +1,45 @@
+import nltk
+from nltk.corpus import movie_reviews
+from nltk.classify import NaiveBayesClassifier
+from nltk.classify.util import accuracy as nltk_accuracy
+
+# NLTK 리소스를 다운로드
+nltk.download('movie_reviews')
+nltk.download('punkt')
+nltk.download('stopwords')
+
+# 리뷰 텍스트를 긍정/부정으로 분류하는 함수 정의
+def extract_features(words):
+    return dict([(word, True) for word in words])
+
+# 영화 리뷰 데이터를 로드하고 긍정/부정 라벨을 붙이기
+positive_reviews = movie_reviews.fileids('pos')
+negative_reviews = movie_reviews.fileids('neg')
+
+features_positive = [(extract_features(movie_reviews.words(fileids=[f])), 'Positive') for f in positive_reviews]
+features_negative = [(extract_features(movie_reviews.words(fileids=[f])), 'Negative') for f in negative_reviews]
+
+# 데이터셋 분할 (트레이닝 데이터 80%, 테스트 데이터 20%)
+threshold = 0.8
+num_positive = int(threshold * len(features_positive))
+num_negative = int(threshold * len(features_negative))
+
+features_train = features_positive[:num_positive] + features_negative[:num_negative]
+features_test = features_positive[num_positive:] + features_negative[num_negative:]
+
+# 나이브 베이즈 분류기 트레이닝
+classifier = NaiveBayesClassifier.train(features_train)
+
+print(f'Accuracy: {nltk_accuracy(classifier, features_test) * 100}%')
+
+# 리뷰를 분류하는 함수
+def classify_review(review):
+    words = nltk.word_tokenize(review)
+    features = extract_features(words)
+    return classifier.classify(features)
+
+# 앞에서 크롤링한 리뷰를 분류
+for i, review in enumerate(review_list):
+    print(f"Review {i+1}: {review}")
+    sentiment = classify_review(review)
+    print(f"Sentiment: {sentiment}\n")
