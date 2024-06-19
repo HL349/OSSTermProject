@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>시장</title>
+    <style>
+        header {
+            text-align: center;
+            font-size: 2em;
+            margin: 20px;
+        }
+        nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+        aside {
+            display: none;
+            border: 1px solid #000;
+            padding: 10px;
+            margin: 20px;
+        }
+        #reviewContent {
+            margin-top: 10px;
+            white-space: pre-wrap; /* Preserve line breaks */
+        }
+    </style>
+</head>
+<body>
+    <header>시장</header>
+    <nav>
+        <a href="#" onclick="highlightMarket('남대문시장')">남대문시장</a>
+        <a href="#" onclick="highlightMarket('광장시장')">광장시장</a>
+    </nav>
+    <div id="map"></div>
+    <aside id="marketInfo">
+        <button onclick="executePythonScript('KakaoReview.py', selectedMarket)">리뷰</button>
+        <div id="reviewContent"></div>
+        <button onclick="executePythonScript('PriceTteokbboki.py')">떡볶이 가격</button>
+        <button onclick="executePythonScript('PriceNoodles.py')">잔치국수 가격</button>
+        <button id="translateBtn" style="display: none;" onclick="executePythonScript('ReviewTranslation.py')">번역(Translate)</button>
+        <button id="exchangeRateBtn" style="display: none;" onclick="executePythonScript('ExchangeRate.py')">환율(Exchange Rate)</button>
+    </aside>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr0AyPL36IR0A3J6PHcaTJRtVRdPUpqvE&callback=initMap" async defer></script>
+    <script>
+        let map;
+        let selectedMarket = '남대문시장';
+        const markets = {
+            '남대문시장': { lat: 37.5599, lng: 126.9753 },
+            '광장시장': { lat: 37.5704, lng: 126.9998 }
+        };
+        let marketMarkers = {};
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 37.5665, lng: 126.9780 },
+                zoom: 12
+            });
+
+            for (const market in markets) {
+                const marker = new google.maps.Marker({
+                    position: markets[market],
+                    map: map,
+                    title: market
+                });
+                marketMarkers[market] = marker;
+
+                marker.addListener('click', function() {
+                    highlightMarket(market);
+                });
+            }
+        }
+
+        function highlightMarket(marketName) {
+            selectedMarket = marketName;
+            map.setCenter(marketMarkers[marketName].getPosition());
+            map.setZoom(15);
+
+            const aside = document.getElementById('marketInfo');
+            aside.style.display = 'block';
+
+            const infoWindow = new google.maps.InfoWindow({
+                content: `<div><strong>${marketName}</strong></div>`
+            });
+
+            infoWindow.open(map, marketMarkers[marketName]);
+        }
+
+        function executePythonScript(scriptName, eventName = '') {
+            if (scriptName === 'KakaoReview.py') {
+                fetch('/run_kakao_review', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ query: eventName })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const reviewContent = document.getElementById('reviewContent');
+                    reviewContent.innerText = data.output ? data.output : "No reviews found.";
+                    document.getElementById('translateBtn').style.display = 'block';
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    document.getElementById('reviewContent').innerText = "Error fetching reviews.";
+                });
+            } else {
+                alert(`Executing ${scriptName} with event ${eventName}`);
+                if (scriptName === 'PriceTteokbboki.py' || scriptName === 'PriceNoodles.py') {
+                    document.getElementById('exchangeRateBtn').style.display = 'block';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

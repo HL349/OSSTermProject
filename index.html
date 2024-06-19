@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>서울 구 지도</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+<meta authors="김태연, 신희정, 이혜연">
+</head>
+
+<body>
+<header>서울 시 내 시장</header>
+<nav> 메뉴: 
+    <a href=""> [a]남대문시장</a>
+    <a href=""> [a]동대문종합시장</a>
+    <a href=""> [a]서울중앙시장/a>
+    <a href=""> [a]광장시장</a>
+</nav>
+<div id="map" style="background-image: url('서울_지도.png');">
+    <div class="region" id="jongno" onclick="showDescription('종로구')">종로구</div>
+    <!-- 다른 구역들도 비슷하게 추가 -->
+</div>
+<div id="description"></div>
+<script src="script.js"></script>
+</body>
+
+</html>
