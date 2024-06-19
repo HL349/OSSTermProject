@@ -1,0 +1,96 @@
+# 필요한 라이브러리 임포트
+import pandas as pd
+import torch
+from transformers import BertTokenizer, BertForSequenceClassification
+from nltk.tokenize import sent_tokenize
+from nltk.corpus import stopwords
+from nltk import download
+from selenium import webdriver
+from bs4 import BeautifulSoup
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+
+
+
+# NLTK 데이터 다운로드
+download('punkt')
+download('stopwords')
+
+# BERT 모델과 토크나이저 로드
+model_name = 'bert-base-multilingual-cased'
+tokenizer = BertTokenizer.from_pretrained(model_name)
+model = BertForSequenceClassification.from_pretrained(model_name)
+
+# Set the path to the chromedriver executable
+chrome_driver_path = r"C:\Users\mousy\TermProject\chromedriver.exe"
+
+# Set up Chrome options
+chrome_options = Options()
+
+# Initialize the Service object with the path to chromedriver
+chrome_service = Service(executable_path=chrome_driver_path)
+
+# Initialize the WebDriver with the service and options
+driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+
+# Navigate to the desired URL
+driver.get("https://map.naver.com/v5/search/남대문시장")
+
+# Review tab xpath
+review_tab_xpath = '//*[@id="place-main-section-root"]/div/div/div/div/div[2]/div[2]/div/a[2]'
+
+# Find the review tab element and click it
+driver.find_element(By.XPATH, review_tab_xpath).click()
+
+# Page loading wait
+import time
+time.sleep(5)  # Wait for 5 seconds
+
+# 페이지 소스 가져오기
+page_source = driver.page_source
+
+# BeautifulSoup을 사용하여 리뷰 데이터 추출
+soup = BeautifulSoup(page_source, 'html.parser')
+reviews = soup.find_all('span', {'class': 'review-text'})  # 리뷰 텍스트가 있는 태그를 선택
+
+# 리뷰 텍스트 추출
+review_texts = [review.get_text() for review in reviews]
+
+# 크롬 드라이버 종료
+driver.quit()
+
+# 리뷰 데이터를 판다스 데이터프레임으로 변환
+df = pd.DataFrame(review_texts, columns=['review'])
+
+# 리뷰 데이터를 토큰화하고 텐서로 변환
+tokens = tokenizer(df['review'].tolist(), return_tensors='pt', padding=True, truncation=True, max_length=512)
+
+# 모델로 확률 계산
+outputs = model(**tokens)
+probs = torch.nn.functional.softmax(outputs.logits, dim=-1)
+
+# 긍정/부정 분류
+positive_reviews = []
+negative_reviews = []
+
+for i, prob in enumerate(probs):
+    if prob[1] > prob[0]:  # 긍정 확률이 더 높으면
+        positive_reviews.append(df['review'][i])
+    else:  # 부정 확률이 더 높으면
+        negative_reviews.append(df['review'][i])
+
+# NLTK를 사용하여 키워드 추출
+stop_words = set(stopwords.words('korean'))
+
+def get_keywords(reviews):
+    all_words = ' '.join(reviews)
+    words = [word for word in all_words.split() if word not in stop_words]
+    freq_dist = nltk.FreqDist(words)
+    return freq_dist.most_common(10)
+
+positive_keywords = get_keywords(positive_reviews)
+negative_keywords = get_keywords(negative_reviews)
+
+print("긍정 리뷰 키워드:", positive_keywords)
+print("부정 리뷰 키워드:", negative_keywords)
