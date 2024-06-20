@@ -1,6 +1,6 @@
 import re
 
-input_file = r"C:\Users\mousy\TermProjectTest\Price\PriceFinal.txt"
+input_file = r"C:\Users\Path\Price\PriceFinal.txt"
 
 # 가격을 추출하기 위한 정규 표현식
 price_pattern = re.compile(r'\d+[,.]?\d*')
