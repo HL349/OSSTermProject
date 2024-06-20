@@ -5,6 +5,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
+import pandas as pd
 
 # 크롬 드라이버 설정
 options = webdriver.ChromeOptions()
@@ -33,6 +34,8 @@ review_list = [review.text for review in reviews]
 # 크롬 드라이버 종료
 driver.quit()
 
-# 리뷰 출력
-for i, review in enumerate(review_list):
-    print(f"Review {i+1}: {review}\n")
+# 리뷰를 CSV 파일로 저장
+df = pd.DataFrame(review_list, columns=["Review"])
+df.to_csv("naver_review.csv", index=False, encoding='utf-8-sig')
+
+print("리뷰가 naver_review.csv 파일에 저장되었습니다.")
