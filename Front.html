@@ -23,6 +23,12 @@
             padding: 10px;
             margin: 20px;
         }
+        #reviewContent, #priceContent {
+            margin: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -32,12 +38,16 @@
     </nav>
     <div id="map"></div>
     <aside id="marketInfo">
-        <button onclick="executePythonScript('KakaoReview.py', '남대문시장')">리뷰</button>
-        <button onclick="executePythonScript('PriceTteokbboki.py')">떡볶이 가격</button>
-        <button onclick="executePythonScript('PriceNoodles.py')">잔치국수 가격</button>
-        <button id="translateBtn" style="display: none;" onclick="executePythonScript('ReviewTranslation.py')">번역(Translate)</button>
-        <button id="exchangeRateBtn" style="display: none;" onclick="executePythonScript('ExchangeRate.py')">환율(Exchange Rate)</button>
+        <button onclick="document.getElementById('csvFileInput').click()">리뷰</button>
+        <button onclick="document.getElementById('priceFileInput').click()">떡볶이 가격</button>
+        <button onclick="document.getElementById('priceFileInput').click()">잔치국수 가격</button>
+        <button id="translateBtn" style="display: none;" onclick="translateReviews()">번역(Translate)</button>
+        <button id="exchangeRateBtn" style="display: none;">환율(Exchange Rate)</button>
+        <input type="file" id="csvFileInput" accept=".csv" style="display:none;" multiple>
+        <input type="file" id="priceFileInput" accept=".txt" style="display:none;">
     </aside>
+    <div id="reviewContent"></div>
+    <div id="priceContent"></div>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr0AyPL36IR0A3J6PHcaTJRtVRdPUpqvE&callback=initMap" async defer></script>
     <script>
@@ -75,14 +85,98 @@
             infoWindow.open(map, namdaemunMarker);
         }
 
-        function executePythonScript(scriptName, eventName = '') {
-            alert(`Executing ${scriptName} with event ${eventName}`);
-            if (scriptName === 'KakaoReview.py') {
-                document.getElementById('translateBtn').style.display = 'block';
-            }
-            if (scriptName === 'PriceTteokbboki.py' || scriptName === 'PriceNoodles.py') {
-                document.getElementById('exchangeRateBtn').style.display = 'block';
-            }
+        document.getElementById('csvFileInput').addEventListener('change', function(event) {
+            const files = event.target.files;
+            const filePromises = Array.from(files).map(file => {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        resolve(e.target.result);
+                    };
+                    reader.onerror = function(e) {
+                        reject(e);
+                    };
+                    reader.readAsText(file);
+                });
+            });
+
+            Promise.all(filePromises).then(data => {
+                const [csvData, negativeReview, positiveReview] = data;
+
+                const csvRows = csvData.split('\n');
+                let csvTable = '<h3>요약</h3><table border="1">';
+                csvRows.forEach(row => {
+                    const cols = row.split(',');
+                    csvTable += '<tr>';
+                    cols.forEach(col => {
+                        csvTable += `<td>${col}</td>`;
+                    });
+                    csvTable += '</tr>';
+                });
+                csvTable += '</table>';
+
+                const reviewContent = `
+                    ${csvTable}
+                    <h3>부정적 리뷰</h3>
+                    <pre>${negativeReview}</pre>
+                    <h3>긍정적 리뷰</h3>
+                    <pre>${positiveReview}</pre>
+                `;
+
+                const reviewDiv = document.getElementById('reviewContent');
+                reviewDiv.innerHTML = reviewContent;
+                reviewDiv.style.display = 'block';
+
+                document.getElementById('translateBtn').style.display = 'inline-block';
+            }).catch(error => console.error('Error loading reviews:', error));
+        });
+
+        document.getElementById('priceFileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                const prices = parsePrices(text);
+                displayPrice(prices);
+            };
+            reader.readAsText(file);
+        });
+
+        function parsePrices(text) {
+            const lines = text.split('\n');
+            const prices = {
+                "떡볶이": null,
+                "잔치국수": null
+            };
+
+            lines.forEach(line => {
+                if (line.includes('떡볶이')) {
+                    prices["떡볶이"] = line.split(':')[1].trim();
+                } else if (line.includes('잔치국수')) {
+                    prices["잔치국수"] = line.split(':')[1].trim();
+                }
+            });
+
+            return prices;
+        }
+
+        function displayPrice(prices) {
+            const priceContent = document.getElementById('priceContent');
+            priceContent.innerHTML = `
+                <h3>떡볶이 가격</h3><p>${prices['떡볶이']}</p>
+                <h3>잔치국수 가격</h3><p>${prices['잔치국수']}</p>
+            `;
+            priceContent.style.display = 'block';
+        }
+
+        function translateReviews() {
+            const reviewDiv = document.getElementById('reviewContent');
+            reviewDiv.style.display = 'none';
+            document.getElementById('csvFileInput').value = null;
+            document.getElementById('translateBtn').style.display = 'none';
+            document.getElementById('csvFileInput').click();
         }
     </script>
 </body>
