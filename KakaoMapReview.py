@@ -67,4 +67,4 @@ df = pd.DataFrame(dic)
 print(df)
 
 
-df.to_csv('Nam_reviews_kakao.csv', index=False, encoding='utf-8-sig')
+df.to_csv('kakao_review.csv', index=False, encoding='utf-8-sig')
