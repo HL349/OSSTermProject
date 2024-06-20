@@ -75,6 +75,6 @@ print("-----*-----*-----*-----*-----*-----*-----*-----*-----*-----*-----*-----*-
 
 positive_reviews = result_df[result_df['sentiment'] == 'positive']
 print(positive_reviews)
-result_df.to_csv('sentiment_analysis_result.csv',index=False, encoding='utf-8-sig')
-negative_reviews.to_csv('negative_review.csv',index=False, encoding='utf-8-sig')
-positive_reviews.to_csv('positive_review.csv',index=False, encoding='utf-8-sig')
+result_df.to_csv('naversentiment_analysis_result.csv',index=False, encoding='utf-8-sig')
+negative_reviews.to_csv('navernegative_review.csv',index=False, encoding='utf-8-sig')
+positive_reviews.to_csv('naverpositive_review.csv',index=False, encoding='utf-8-sig')
