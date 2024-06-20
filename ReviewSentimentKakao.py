@@ -3,7 +3,7 @@ import json
 import pandas as pd
 import sys
 
-df = pd.read_csv('Nam_reviews_kakao.csv', encoding='utf-8-sig')
+df = pd.read_csv('kakao_review.csv', encoding='utf-8-sig')
 
 import re
 
