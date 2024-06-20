@@ -3,7 +3,7 @@ import requests
 import json
 
 # 리뷰 데이터 로드
-df = pd.read_csv('reviews.csv', encoding='utf-8-sig')
+df = pd.read_csv('naver_review.csv', encoding='utf-8-sig')
 
 review_texts = df['Review'].tolist()
 
