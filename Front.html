@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>시장</title>
+    <style>
+        header {
+            text-align: center;
+            font-size: 2em;
+            margin: 20px;
+        }
+        nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+        aside {
+            display: none;
+            border: 1px solid #000;
+            padding: 10px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>시장</header>
+    <nav>
+        <a href="#" onclick="highlightNamdaemun()">남대문시장</a>
+    </nav>
+    <div id="map"></div>
+    <aside id="marketInfo">
+        <button onclick="executePythonScript('KakaoReview.py', '남대문시장')">리뷰</button>
+        <button onclick="executePythonScript('PriceTteokbboki.py')">떡볶이 가격</button>
+        <button onclick="executePythonScript('PriceNoodles.py')">잔치국수 가격</button>
+        <button id="translateBtn" style="display: none;" onclick="executePythonScript('ReviewTranslation.py')">번역(Translate)</button>
+        <button id="exchangeRateBtn" style="display: none;" onclick="executePythonScript('ExchangeRate.py')">환율(Exchange Rate)</button>
+    </aside>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr0AyPL36IR0A3J6PHcaTJRtVRdPUpqvE&callback=initMap" async defer></script>
+    <script>
+        let map;
+        let namdaemunMarker;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 37.5665, lng: 126.9780 }, // 서울 중심 좌표
+                zoom: 12
+            });
+
+            namdaemunMarker = new google.maps.Marker({
+                position: { lat: 37.5599, lng: 126.9753 }, // 남대문 시장 좌표
+                map: map,
+                title: '남대문시장'
+            });
+
+            namdaemunMarker.addListener('click', function() {
+                highlightNamdaemun();
+            });
+        }
+
+        function highlightNamdaemun() {
+            map.setCenter(namdaemunMarker.getPosition());
+            map.setZoom(15);
+
+            const aside = document.getElementById('marketInfo');
+            aside.style.display = 'block';
+
+            const infoWindow = new google.maps.InfoWindow({
+                content: '<div><strong>남대문시장</strong><br>서울특별시 중구 남대문로 21</div>'
+            });
+
+            infoWindow.open(map, namdaemunMarker);
+        }
+
+        function executePythonScript(scriptName, eventName = '') {
+            alert(`Executing ${scriptName} with event ${eventName}`);
+            if (scriptName === 'KakaoReview.py') {
+                document.getElementById('translateBtn').style.display = 'block';
+            }
+            if (scriptName === 'PriceTteokbboki.py' || scriptName === 'PriceNoodles.py') {
+                document.getElementById('exchangeRateBtn').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
