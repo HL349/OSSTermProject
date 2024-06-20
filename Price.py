@@ -6,8 +6,8 @@ import pytesseract
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 # 기본 이미지 경로 템플릿
-image_path_template = r"C:\Users\mousy\TermProjectTest\Price\Price{}.png"
-output_file = r"C:\Users\mousy\TermProjectTest\Price\PriceFinal.txt"
+image_path_template = r"C:\Users\Path\Price\Price{}.png"
+output_file = r"C:\Users\Path\Price\PriceFinal.txt"
 
 N = 1
 
