@@ -10,6 +10,7 @@ image_path_template = r"C:\Users\Path\Price\Price{}.png"
 output_file = r"C:\Users\Path\Price\PriceFinal.txt"
 
 N = 1
+prices = []   #가격 정보 리스트
 
 with open(output_file, 'w', encoding='utf-8') as f:
     while True:
@@ -40,6 +41,14 @@ with open(output_file, 'w', encoding='utf-8') as f:
             if text:  # 텍스트가 있는 경우에만 파일에 쓰기
                 f.write(f'{text}\n')
                 print('Detected text:', text)
+             
+                # 가격 정보를 숫자로 변환하여 리스트에 추가
+                try:
+                    # 가격 정보에서 숫자만 추출
+                    price = float(''.join(filter(str.isdigit, text)) or '0')
+                    prices.append(price)
+                except ValueError:
+                    print(f"Failed to convert {text} to a number.")
             
             # N값을 증가
             N += 1
@@ -47,3 +56,12 @@ with open(output_file, 'w', encoding='utf-8') as f:
             # 파일이 존재하지 않으면 루프 종료
             print(f"No more images found at N={N}.")
             break
+
+# 평균 값 계산 및 출력
+if prices:
+    average_price = sum(prices) / len(prices)
+    print(f'Average price: {average_price}')
+    with open(output_file, 'a', encoding='utf-8') as f:
+        f.write(f'\nAverage price: {average_price}')
+else:
+    print("No prices detected.")
