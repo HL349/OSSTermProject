@@ -26,3 +26,13 @@ with open(input_file, 'r', encoding='utf-8') as f:
 # 결과 출력
 print(f"떡볶이 가격: {prices['떡볶이']}")
 print(f"잔치국수 가격: {prices['잔치국수']}")
+
+
+# 평균 값 계산 및 출력
+if prices:
+    average_price = sum(prices) / len(prices)
+    print(f'Average price: {average_price}')
+    with open(output_file, 'a', encoding='utf-8') as f:
+        f.write(f'\nAverage price: {average_price}')
+else:
+    print("No prices detected.")
