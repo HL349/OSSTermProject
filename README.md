@@ -154,6 +154,7 @@ Negative review만 추출- 총 14개
 
 
 -떡볶이랑 잔치국수만 추출
+
 ![image](https://github.com/HL349/OSSTermProject/assets/163121438/bd5e777d-c71c-474b-abe4-9ea89387b98a)
 
 
