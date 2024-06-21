@@ -1,3 +1,55 @@
+[매뉴얼]
+
+ExchangeRateNoodles.py
+- 잔치국수 환율 모델
+
+ExchangeRateTteokbokki.py
+- 떡볶이 환율 모델
+
+Front.html
+- 프런트
+- 각 모듈 실행 후 저장 -> 각 버튼 클릭 후 저장된 결과 불러오기 방식으로 화면에 띄우기
+
+KakaoMapReview.py
+- 카카오맵 리뷰
+- '검색할 키워드를 입력하세요: ' 라고 띄워지면 터미널에 키워드 입력
+- 결과는 csv로 저장
+
+NaverReview.py
+- 네이버 지도 리뷰
+- 리뷰 페이지 url 직접 코드에 입력해야함
+- 결과는 csv로 저장
+
+Price.py
+- 이미지(Price.zip)에서 텍스트 추출
+- 이미지 전처리, 모든 이미지에 대해서 처리
+
+PriceTxtExtract.py
+- Price.py에서 '떡볶이'와 '잔치국수'에 대한 가격만 추출
+- 그것에 대한 평균 값 계산 및 출력
+
+ReviewSentimentKakao.py
+- 텍스트 전처리
+- 네이버 클로바 API 사용
+
+ReviewSentimentNaver.py
+- 텍스트 전처리
+- 네이버 클로바 API 사용
+
+ReviewTranslationKakao.py
+- 파파고 번역 API 사용
+- 리뷰 번역
+
+ReviewTranslationNaver.py
+- 파파고 번역 API 사용
+- 리뷰 번역
+
+SummaryKakao.py
+- 긍정, 부정 리뷰 키워드 요약
+
+SummaryNaver.py
+- 긍정, 부정 리뷰 키워드 요약
+
 # [외국인을 위한 전통시장 리뷰 및 가격표 보급 시스템]
 
 • 프로젝트 요약
