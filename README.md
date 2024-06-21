@@ -158,7 +158,7 @@ Negative review만 추출- 총 14개
 
 [실행 결과]
 떡볶이 가격에 대해 일본 엔화로 환전
-![스크린샷 2024-06-21 145232](https://github.com/HL349/OSSTermProject/assets/131737162/804939be-9c54-489e-b861-abbd72e3a84d)
+![스크린샷 2024-06-21 145836](https://github.com/HL349/OSSTermProject/assets/131737162/984bc416-f2c9-4eb1-a1ba-59efc845a5cc)
 
 [최종 UI 기능 구현] 
 -각 시장의 위치와 크롤링한 리뷰, 추출한 가격 표기 후 그것을 각 나라의 언어와 환율로 바꿔   표기해주는 기능을 출력하는 것을 목표로 함.
