@@ -27,10 +27,10 @@ data = {
     "content": all_content
   },
   "option": {
-    "language": "ko",
-    "model": "general",
-    "tone": 3,
-    "summaryCount": 3
+    "language": "ko",  
+    "model": "general",  # 일반 버전과 뉴스 형식 버전이 있음 # 여기서는 일반 버전 사용
+    "tone": 3, # 음슴체
+    "summaryCount": 3  # 3줄 요약약
   }
 }
 
