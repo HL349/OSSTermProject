@@ -140,14 +140,25 @@ Negative review만 추출- 총 14개
 - 가격표 이미지로부터 가격 정보 텍스트를 추출하여 특정 음식의 평균 가격을 산출하는 것을 목표로 한다. Tesseract OCR 엔진을 활용하여 이미지 내의 텍스트를 인식하고, 이를 전처리 과정을 거쳐 최종적으로 텍스트로 출력한다. 출력한 가격 정보 텍스트로 평균 가격을 계산한다.
 
 . [사용한 기술과 도구]
-① 프로그래밍 언어: Python             ④ HTTP 요청 및 데이터 처리: requests        
+① 프로그래밍 언어: Python    ④ HTTP 요청 및 데이터 처리: requests        
 ② 라이브러리: OpenCV(이미지 처리), Tesseract OCR(텍스트 인식)        
-③ 외부 도구: Tesseract-OCR 바이너리 설치   
+③ 외부 도구: Tesseract-OCR 바이너리 설치
 
 링크: [가격표 인식](https://github.com/HL349/OSSTermProject/blob/main/Price.py)
 
+[실행 결과]
+
+-가격표 전체 텍스트 추출
+
+![price](https://github.com/HL349/OSSTermProject/assets/163121438/7b090929-47f9-4694-a2c9-08b7ef64bdb3)
+
+
+-떡볶이랑 잔치국수만 추출
+![image](https://github.com/HL349/OSSTermProject/assets/163121438/bd5e777d-c71c-474b-abe4-9ea89387b98a)
+
+
 6. 평균 가격 환율 변환 시스템
-- 실시간 환율 정보를 활용하여 사용자가 입력한 나라의 화폐로 변환된 음식(떡볶이/잔치국수)    의 평균 가격을 출력 하는 것을 목표로 함.
+- 실시간 환율 정보를 활용하여 사용자가 입력한 나라의 화폐로 변환된 음식(떡볶이/잔치국수)의 평균 가격을 출력 하는 것을 목표로 함.
 
 . [사용한 기술과 도구]
 ① 프로그래밍 언어: Python                 ④ HTTP 요청 및 데이터 처리: requests
