@@ -136,6 +136,40 @@ Negative review만 추출- 총 14개
 긍정 리뷰 요약, 부정 리뷰 요약에 대해 일본어로 번역한 예시
 ![image](https://github.com/HL349/OSSTermProject/assets/163121438/943d7022-1baf-486c-a0fd-f6d58e94ba83)
 
+5. 가격표 이미지 내 가격 정보 추출 후 평균 가격 산출 시스템
+- 가격표 이미지로부터 가격 정보 텍스트를 추출하여 특정 음식의 평균 가격을 산출하는 것을 목표로 한다. Tesseract OCR 엔진을 활용하여 이미지 내의 텍스트를 인식하고, 이를 전처리 과정을 거쳐 최종적으로 텍스트로 출력한다. 출력한 가격 정보 텍스트로 평균 가격을 계산한다.
+
+. [사용한 기술과 도구]
+① 프로그래밍 언어: Python             ④ HTTP 요청 및 데이터 처리: requests        
+② 라이브러리: OpenCV(이미지 처리), Tesseract OCR(텍스트 인식)        
+③ 외부 도구: Tesseract-OCR 바이너리 설치   
+
+링크: [가격표 인식](https://github.com/HL349/OSSTermProject/blob/main/Price.py)
+
+6. 평균 가격 환율 변환 시스템
+- 실시간 환율 정보를 활용하여 사용자가 입력한 나라의 화폐로 변환된 음식(떡볶이/잔치국수)    의 평균 가격을 출력 하는 것을 목표로 함.
+
+. [사용한 기술과 도구]
+① 프로그래밍 언어: Python                 ④ HTTP 요청 및 데이터 처리: requests
+② 환율 API: ExchangeRate-API              
+③ 사용자 입력 처리: Python의 내장 함수 및 문자열 처리 기능
+
+링크: [환율 변환](https://github.com/HL349/OSSTermProject/blob/main/PriceTxtExtract.py)
+
+[최종 UI 기능 구현] 
+-각 시장의 위치와 크롤링한 리뷰, 추출한 가격 표기 후 그것을 각 나라의 언어와 환율로 바꿔   표기해주는 기능을 출력하는 것을 목표로 함.
+
+링크: [최종 UI](https://github.com/HL349/OSSTermProject/blob/main/Front.html)
+
+. [사용한 기술과 도구]
+① 프로그래밍 언어: HTML, Javascript
+② 지도 API: google maps api              
+③ 사용자 입력 처리: 버튼 클릭
+
+- 기능 및 구현 방법:
+1. Google Maps를 통해 시장의 위치를 보여준다. 마커를 클릭하면 그 위치가 지도의 중심으로 이동한다. 
+2. 리뷰 데이터와 가격 데이터, 번역 데이터를 버튼을 클릭하면 각각 csv 파일을 로컬파일에서 업로드 한다.
+3. 패널 콘텐츠 표시 상태가 사용자의 상호작용의 상태에 따라 표시 상태가 변경된다.
 
 
 
