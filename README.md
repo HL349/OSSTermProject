@@ -177,6 +177,7 @@ Negative review만 추출- 총 14개
 
 
 [최종 UI 기능 구현] 
+
 -각 시장의 위치와 크롤링한 리뷰, 추출한 가격 표기 후 그것을 각 나라의 언어와 환율로 바꿔   표기해주는 기능을 출력하는 것을 목표로 함.
 
 링크: [최종 UI](https://github.com/HL349/OSSTermProject/blob/main/Front.html)
