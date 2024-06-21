@@ -1,9 +1,10 @@
-[외국인을 위한 전통시장 리뷰 및 가격표 보급 시스템]
+# [외국인을 위한 전통시장 리뷰 및 가격표 보급 시스템]
 
 • 프로젝트 요약
 
 ◦각 시장의 리뷰를 ‘네이버 지도’ 또는 ‘카카오 맵’ 등의 리뷰 사이트에서 모아 한눈에 파악할 수 있도록 하고, 긍정적/부정적 리뷰로 분류하며 키워드로 요약된 전체적인 시장의 리뷰를 알 수 있도록 한다.   
 ◦리뷰 사이트에서 모아온 리뷰를 각 선택된 언어로 번역한다.
+
 ◦시장의 가격표를 찍은 사진을 모은 후 음식의 평균적인 가격을 알 수 있도록 하며, 환율 계산을 하여 서비스 이용자인 외국인들이 정확한 가격을 알 수 있도록 한다.
 
 1. 지도 웹사이트의 리뷰 크롤링
@@ -16,7 +17,8 @@
 ③ 크롬 드라이버 관리: webdriver_manager (네이버 지도)
 ④ HTML 파싱: BeautifulSoup (카카오 맵)
 
-링크: 카카오맵 리뷰, 네이버리뷰
+링크: [카카오맵 리뷰](https://github.com/HL349/OSSTermProject/blob/main/KakaoMapReview.py), [네이버리뷰](https://github.com/HL349/OSSTermProject/blob/main/NaverReview.py)
+
 ※	크롬 웹드라이버 버전 호환 주의, Selenium으로 동작할 때 웹페이지의 HTML 문서 분석 필요
 -	예시: 카카오맵 검색창의 XPATH를 가져와야 하는 경우, 카카오맵 검색창에서 마우스 오른쪽 버튼을 클릭하여 검사를 누르면 HTML 문서에서 해당 요소 복사 가능
 
@@ -37,7 +39,8 @@
 ③ 정규 표현식: re (텍스트 전처리) ④ 네이버 감정 분석 API: Naver Clova Sentiment
 ⑤ HTTP 요청: requests
 
-링크: 리뷰감정분석
+링크: [리뷰감정분석-카카오](https://github.com/HL349/OSSTermProject/blob/main/ReviewSentimentKakao.py),
+[리뷰감정분석-네이버](https://github.com/HL349/OSSTermProject/blob/main/ReviewSentimentNaver.py)
 ※	네이버 API 사용시 필요한 키 개인 발급 필요, 사용 구조 파악 및 변형
 
 [실행 결과]
@@ -59,7 +62,8 @@ Negative review만 추출- 총 14개
 ② 데이터 처리 및 저장: pandas              
 ③ 텍스트 요약 API: Naver Cloud Platform(Naver Clova Summary)
 
-링크: 리뷰요약서비스
+링크: [리뷰요약서비스-카카오](https://github.com/HL349/OSSTermProject/blob/main/SummaryKakao.py),
+      [리뷰요약서비스-네이버](https://github.com/HL349/OSSTermProject/blob/main/SummaryNaver.py)
 
 [실행 결과]
 ![image](https://github.com/HL349/OSSTermProject/assets/163121438/2a6cdb6a-739f-46d0-bac9-15057d50c152)
@@ -73,7 +77,8 @@ Negative review만 추출- 총 14개
 ② 데이터 처리 및 저장: pandas              
 ③ 번역 API: Naver Papago API
 
-링크: 리뷰번역시스템
+링크: [리뷰번역시스템-카카오](https://github.com/HL349/OSSTermProject/blob/main/ReviewTranslationKakao.py),
+[리뷰번역시스템-네이버](https://github.com/HL349/OSSTermProject/blob/main/ReviewTranslationNaver.py)
 
 [실행 결과]
 긍정 리뷰 요약, 부정 리뷰 요약에 대해 일본어로 번역한 예시
