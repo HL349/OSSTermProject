@@ -192,6 +192,21 @@ Negative review만 추출- 총 14개
 2. 리뷰 데이터와 가격 데이터, 번역 데이터를 버튼을 클릭하면 각각 csv 파일을 로컬파일에서 업로드 한다.
 3. 패널 콘텐츠 표시 상태가 사용자의 상호작용의 상태에 따라 표시 상태가 변경된다.
 
+[실행 결과]  (용량이 커 화질이 좋지 않다)
+
+-리뷰 버튼 클릭
+
+![summary](https://github.com/HL349/OSSTermProject/assets/163121438/f5d80d71-81dd-4b76-bab8-ed443692ace1)
+
+-번역 버튼 클릭
+
+![trans](https://github.com/HL349/OSSTermProject/assets/163121438/900f2efe-604b-4f96-88d9-5cf05ee62bec)
+
+-가격 버튼 클릭
+
+![price (2)](https://github.com/HL349/OSSTermProject/assets/163121438/29d6ff97-577c-4cbd-a67d-7e702ffec5fd)
+
+
 [프로젝트 수행 결과의 한계점]
 
 ◦개발 기술의 한계점
