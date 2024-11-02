@@ -8,8 +8,8 @@ df = pd.read_csv('kakao_review.csv', encoding='utf-8-sig')
 review_texts = df['Review'].tolist()
 
 # 파파고 번역 API 설정
-papago_client_id = "vsffe7umav".strip()
-papago_client_secret = "cCmMOJvVluQYkO1tpoGqIq3iNHrYqK9aq0JGwgXO".strip()
+papago_client_id = "client_id".strip()
+papago_client_secret = "client_secret".strip()
 
 # 사용자로부터 번역할 언어 코드 입력 받기
 target_language = input("Enter the target language code (e.g., en for English, ja for Japanese es for Spanish): ").strip()
