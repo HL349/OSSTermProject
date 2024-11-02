@@ -53,8 +53,8 @@ content2 = negative_reviews.tolist()
 all_content2 = "\n".join(content2)
 
 # 발급받은 API 키
-client_id = "et4a09ulhh" 
-client_secret = "U9H8nD09CBpIvhLqLZmZwEvRrT6T9lK60dIimRRI"
+client_id = "client_id" 
+client_secret = "client_secret"
 
 # 부정 리뷰 요약
 
