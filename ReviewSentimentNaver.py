@@ -23,8 +23,8 @@ df = df.drop_duplicates(subset=['리뷰'], keep='first')
 
 review_text = df['리뷰']
 
-client_id = "8z47hfo7sw"
-client_secret = "OFnp7HqkiGS0WyuxjF1Fli3LGKzdnnIVquIYhNb4"
+client_id = "client_id"
+client_secret = "client_secret"
 
 url="https://naveropenapi.apigw.ntruss.com/sentiment-analysis/v1/analyze"
 headers={   "X-NCP-APIGW-API-KEY-ID": client_id, 
