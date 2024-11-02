@@ -23,8 +23,8 @@ df = df.drop_duplicates(subset=['리뷰'], keep='first')
 review_text = df['리뷰']
 
 # 네이버 API 사용 시 필요한 키로 개인 발급 받아야 함
-client_id = "8z47hfo7sw"
-client_secret = "OFnp7HqkiGS0WyuxjF1Fli3LGKzdnnIVquIYhNb4"
+client_id = "client_id"
+client_secret = "client_secret"
 
 url="https://naveropenapi.apigw.ntruss.com/sentiment-analysis/v1/analyze"
 headers={   "X-NCP-APIGW-API-KEY-ID": client_id, 
