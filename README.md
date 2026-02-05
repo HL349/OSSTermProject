@@ -64,8 +64,8 @@ SummaryNaver.py
 
 . [사용한 기술과 도구]
 
-① 프로그래밍 언어: Python               ④ 웹 드라이버: Selenium       
-② 데이터 처리 및 저장: pandas           ⑤ 브라우저 자동화 도구: ChromeDriver
+① 프로그래밍 언어: Python               ④ 웹 드라이버: ChromeDriver       
+② 데이터 처리 및 저장: pandas           ⑤ 크롤링: Selenium
 ③ 크롬 드라이버 관리: webdriver_manager (네이버 지도)
 ④ HTML 파싱: BeautifulSoup (카카오 맵)
 
